@@ -1,9 +1,16 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useContext } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import Icon from "react-native-paper/lib/typescript/components/Icon";
+
 import { ProductsContext } from "../components/context/provider";
 import { StackScreens } from "../components/helpers/types";
-import { ProductListScreen } from "./ProductListScreen";
 
 export const AddProductListScreen: React.FC<
   NativeStackScreenProps<StackScreens, "AddProductListScreen">
@@ -14,6 +21,7 @@ export const AddProductListScreen: React.FC<
   const [Type, setType] = React.useState("");
   return (
     <View style={styles.container}>
+      <h1>Create New Product</h1>
       <TextInput
         style={styles.input}
         onChangeText={setName}
@@ -41,7 +49,9 @@ export const AddProductListScreen: React.FC<
           width: "100%",
         }}
       >
-        <Button
+        <TouchableOpacity
+          style={styles.buttonStyleSave}
+          
           onPress={() => {
             addProduct({
               id: products.length + 1,
@@ -51,23 +61,28 @@ export const AddProductListScreen: React.FC<
             });
             props.navigation.navigate("ProductListScreen");
           }}
-          title="SAVE"
-          color="green"
-        />
-        <Button
-          onPress={() => {
-            ("");
-          }}
-          title="CANCEL"
-          color="red"
-        />
+        >
+          <Text style={styles.saveButtonText}>SAVE </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonStyleCancel}>
+          <Text style={styles.cancelButtonText}>CANCEL</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  cancelButtonText: {
+    fontSize: 20,
+    color: "black",
+  },
+  saveButtonText: {
+    fontSize: 20,
+    color: "white",
+  },
   input: {
+    borderRadius: 5,
     color: "black",
     height: 60,
     margin: 12,
@@ -75,8 +90,26 @@ const styles = StyleSheet.create({
     padding: 10,
     width: "90%",
   },
-  buttonStyle: {
+  buttonStyleCancel: {
+    marginTop: 20,
+    width: "45%",
     marginHorizontal: 10,
+    alignItems: "center",
+    backgroundColor: "white",
+    borderColor: "black",
+    borderWidth: 2,
+    padding: 10,
+    borderRadius: 17,
+  },
+
+  buttonStyleSave: {
+    marginTop: 20,
+    width: "45%",
+    marginHorizontal: 10,
+    alignItems: "center",
+    backgroundColor: "green",
+    padding: 10,
+    borderRadius: 17,
   },
 
   container: {
