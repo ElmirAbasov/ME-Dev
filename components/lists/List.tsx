@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Badge, Card, IconButton } from "react-native-paper";
-import { tokens } from "../translation/appStructure";
-import { translate } from "../translation/translation";
+import { tokens } from "../../language/appStructure";
+import { translate } from "../../language/language";
 
 export interface ListItem {
   id: number;
@@ -18,11 +18,11 @@ interface ListItemComponent extends ListItem {
 export const ListItem: React.FC<ListItemComponent> = (props) => {
   const getType = (id: number) => {
     if (id === 0) {
-      return translate(tokens.screens.productItem.Integrated);
+      return "integrated"
     } else if (id === 1) {
-      return translate(tokens.screens.productItem.Peripheral);
+      return "peripheral"
     } else {
-      return translate(tokens.screens.productItem.UnknownType);
+      return "unknown"
     }
   };
 
@@ -32,7 +32,7 @@ export const ListItem: React.FC<ListItemComponent> = (props) => {
       title={props.name}
       subtitle={getType(props.type)}
       left={() => <Text>${props.price}</Text>}
-      right={() => <IconButton icon="chevron-right" onPress={props.onClick} />}
+      right={() => <IconButton icon="pencil" onPress={props.onClick} />}
     />
   );
 };

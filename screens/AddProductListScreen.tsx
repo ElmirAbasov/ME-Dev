@@ -3,11 +3,11 @@ import React, { useContext } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import { ProductsContext } from "../components/context/provider";
 import { StackScreens } from "../components/helpers/types";
+import { ProductListScreen } from "./ProductListScreen";
 
 export const AddProductListScreen: React.FC<
   NativeStackScreenProps<StackScreens, "AddProductListScreen">
- = (props) => {
-
+> = (props) => {
   const { products, addProduct } = useContext(ProductsContext);
   const [Name, setName] = React.useState("");
   const [Price, setPrice] = React.useState("");
@@ -49,7 +49,7 @@ export const AddProductListScreen: React.FC<
               price: Number(Price),
               type: Number(Type),
             });
-            props.navigation.navigate("ProductListScreen")
+            props.navigation.navigate("ProductListScreen");
           }}
           title="SAVE"
           color="green"
@@ -65,8 +65,6 @@ export const AddProductListScreen: React.FC<
     </View>
   );
 };
-
-export default AddProductListScreen;
 
 const styles = StyleSheet.create({
   input: {

@@ -3,7 +3,12 @@ import { Text } from "react-native";
 import { ProductItem, ProductsContextState } from "../helpers/types";
 
 const contextDefaultValues: ProductsContextState = {
-  products: [
+  products: [ {
+      id: 0,
+      name: "Hej",
+      price: 0,
+      type: 0
+  }
 
 
   ],
