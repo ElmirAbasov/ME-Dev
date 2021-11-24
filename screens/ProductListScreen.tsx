@@ -21,6 +21,9 @@ import {
   Portal,
   Provider,
 } from "react-native-paper";
+import { tokens } from "../language/appStructure";
+import { translate } from "../language/language";
+
 
 export const ProductListScreen: React.FC<
   NativeStackScreenProps<StackScreens, "ProductListScreen">
@@ -70,12 +73,16 @@ export const ProductListScreen: React.FC<
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={styles.containerText}>Name </Text>
-        <Text style={styles.containerText}>Type</Text>
-        <Text style={styles.containerText}>Price</Text>
+        <Text style={styles.containerText}>{translate(tokens.screens.productListScreen.Name)} </Text>
+        <Text style={styles.containerText}>{translate(tokens.screens.productListScreen.Type)}</Text>
+        <Text style={styles.containerText}>{translate(tokens.screens.productListScreen.Price)}</Text>
       </View>
       <Divider />
       <FlatList
+       ListEmptyComponent={
+         <Text> {translate(tokens.screens.productListScreen.NoProducts)}</Text>
+
+       }
         data={products}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
@@ -105,15 +112,15 @@ export const ProductListScreen: React.FC<
               visible={visible}
               onDismiss={hideDialog}
             >
-              <Dialog.Title style={styles.dialogText}>Delete</Dialog.Title>
+              <Dialog.Title style={styles.dialogText}>{translate(tokens.screens.addProductListScreen.Delete)}</Dialog.Title>
               <Dialog.Content>
                 <Paragraph style={styles.dialogText}>
-                  Are you sure you want to delete {} item?
+                {translate(tokens.screens.productListScreen.SureDelete)}
                 </Paragraph>
               </Dialog.Content>
               <Dialog.Actions>
                 <Button color={"red"} onPress={hideDialog}>
-                  Cancel
+                {translate(tokens.screens.addProductListScreen.Cancel)}
                 </Button>
                 <Button
                   color={"red"}
@@ -122,7 +129,7 @@ export const ProductListScreen: React.FC<
                     hideDialog();
                   }}
                 >
-                  Delete🗑️
+                  {translate(tokens.screens.addProductListScreen.Delete)}🗑️
                 </Button>
               </Dialog.Actions>
             </Dialog>
