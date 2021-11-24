@@ -80,7 +80,9 @@ export const ProductListScreen: React.FC<
       <Divider />
       <FlatList
        ListEmptyComponent={
-         <Text> {translate(tokens.screens.productListScreen.NoProducts)}</Text>
+         
+         <Text style={styles.emptyText}> {translate(tokens.screens.productListScreen.NoProducts)}</Text>
+         
 
        }
         data={products}
@@ -141,6 +143,14 @@ export const ProductListScreen: React.FC<
 };
 
 const styles = StyleSheet.create({
+  emptyText: {
+    textAlign: "center",
+    marginTop: "50%",
+    fontSize:18,
+    fontWeight: "bold",
+    color: "grey"
+
+  }, 
   containerText: {
     fontWeight: "bold",
     fontSize: 14

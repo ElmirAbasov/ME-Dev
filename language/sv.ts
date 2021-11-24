@@ -3,7 +3,7 @@ export const swedish = {
     [tokens.screens.app.MainText]:"Välkommen till min app!",
 
 
-
+    
     [tokens.screens.addProductListScreen.MainText]: "Skapa Ny Produkt",
     [tokens.screens.addProductListScreen.Cancel]:  "Avbryt",
     [tokens.screens.addProductListScreen.Save]: "Spara",

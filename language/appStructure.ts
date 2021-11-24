@@ -21,7 +21,7 @@ enum ProductListScreen {
     Price=  'ProductListsScreen-Price',
     Type=  'ProductListsScreen-Type',
     SureDelete= "ProductListScreen-SureDelete",
-    NoProducts= "ProductListScreen.NoProducts"
+    NoProducts= "ProductListScreen-NoProducts"
 }
 enum List {
     Integrated = "ProductItem-Integrated",

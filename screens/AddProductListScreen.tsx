@@ -82,9 +82,10 @@ export const AddProductListScreen: React.FC<
   const getPriceNotValidText = (type: number) => {
     if (type === 1) {
 
-      return "1000-2600";
+      return translate(tokens.screens.addProductListScreen.PriceRangeNotValid);
     } else {
-      return ">0";
+      return  translate(tokens.screens.addProductListScreen.PriceNotValid);
+
     }
   };
   const getType = (id: number) => {
@@ -94,10 +95,6 @@ export const AddProductListScreen: React.FC<
       return "peripheral";
     } else {
       return "unknown";
-
-      return translate(tokens.screens.addProductListScreen.PriceRangeNotValid);
-    } else {
-      return  translate(tokens.screens.addProductListScreen.PriceNotValid);
 
     }
   };
@@ -130,18 +127,7 @@ export const AddProductListScreen: React.FC<
       visible={invalidPriceRange()}
       >
         {getPriceNotValidText(Number(type))}</HelperText>
-      <RadioButton.Group onValueChange={newValue => setType(newValue)} value={type}>
-        <View style={styles.radio}>
-          <RadioButton value="0" />
-          <Text>{translate(tokens.screens.addProductListScreen.Integrated)}</Text>
-
-        </View>
-        <View style={styles.radio}>
-          <RadioButton value="1" />
-          <Text>{translate(tokens.screens.addProductListScreen.Peripheral)}</Text>
-
-        </View>
-      </RadioButton.Group>
+  
 
 
       <View
