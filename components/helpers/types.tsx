@@ -1,6 +1,10 @@
 export type StackScreens = {
     ProductListScreen: undefined,
-    AddProductListScreen: undefined
+    AddProductListScreen: {
+      item: ProductItem,
+      add: boolean
+    },
+
 }
 export interface ProductItem {
     id: number;

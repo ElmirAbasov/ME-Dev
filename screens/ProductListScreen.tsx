@@ -29,6 +29,8 @@ export const ProductListScreen: React.FC<
 
   const showDialog = () => setVisible(true);
 
+
+
   const hideDialog = () => setVisible(false);
 
   const [selectedItem, setSelectedItem] = React.useState(0);
@@ -37,9 +39,22 @@ export const ProductListScreen: React.FC<
   const renderItem = ({ item }: { item: ListItem }) => {
     return (
       <TouchableOpacity
+      onLongPress={() => {
+        setSelectedItem(item.id);
+       showDialog();
+
+      }}
         onPress={() => {
-          setSelectedItem(item.id);
-          showDialog();
+          
+          props.navigation.navigate("AddProductListScreen",{ 
+            item:{
+              id:item.id,
+              name:item.name,
+              price:item.price,
+              type:item.type
+
+            },add:false
+          })
         }}
       >
         <ListItem
@@ -71,7 +86,15 @@ export const ProductListScreen: React.FC<
           name="add-circle"
           color={"green"}
           size={60}
-          onPress={() => props.navigation.navigate("AddProductListScreen")}
+          onPress={() => props.navigation.navigate("AddProductListScreen",{ 
+            item:{
+              id:0,
+              name:"",
+              price:0,
+              type:0
+
+            },add:true
+          })}
         ></MaterialIcons>
       </View>
       <Provider>

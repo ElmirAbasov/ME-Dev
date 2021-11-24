@@ -1,11 +1,12 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
+  
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -13,23 +14,82 @@ import { ProductsContext } from "../components/context/provider";
 import { StackScreens } from "../components/helpers/types";
 import { useFonts } from "expo-font";
 
+
+import { HelperText, RadioButton } from 'react-native-paper';
+
+
 export const AddProductListScreen: React.FC<
   NativeStackScreenProps<StackScreens, "AddProductListScreen">
 > = (props) => {
-  const { products, addProduct } = useContext(ProductsContext);
-  const [Name, setName] = React.useState("");
+
+  const params = props.route.params;
+
+  const { products, addProduct, updateProduct } = useContext(ProductsContext);
+  const [name, setName] = React.useState("");
+  const [id, setId] = React.useState(0);
   const [Price, setPrice] = React.useState("");
-  const [Type, setType] = React.useState("");
+  const [type, setType] = React.useState('0');
   const [fontsLoaded] = useFonts({
     CrazyFont: require("../assets/fonts/SpaceMono-Regular.ttf"),
+
+
   });
+
+  const invalidPriceRange = () => {
+    if (Number(type) === 0 && Number(Price) > 0) {
+      return false;
+    } else if (Number(type) === 1) {
+      if (Number(Price) >= 1000 && Number(Price) <= 2600) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return true;
+    }
+  };
+
+  useEffect(() => {
+
+    setId(params.item.id);
+    setName(params.item.name);
+    setPrice(String(params.item.price));
+    setType(String(params.item.type));
+
+  }, []);
+
+  
+  const invalidNameInput = () => {
+    if (name.trim() === "") {
+      return false;
+    } else {
+      if (products.some((item) => item.name === name && item.id !== id)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
+
+
+  const getPriceNotValidText = (type: number) => {
+    if (type === 1) {
+      return "1000-2600"
+    } else {
+      return ">0"
+    }
+  };
+  
+
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Create New Product</Text>
       <TextInput
         style={styles.input}
         onChangeText={setName}
-        value={Name}
+        value={name}
         placeholder="Name"
       />
 
@@ -39,12 +99,23 @@ export const AddProductListScreen: React.FC<
         value={Price}
         placeholder="Price"
       />
-      <TextInput
-        style={styles.input}
-        onChangeText={setType}
-        value={Type}
-        placeholder="Product Type"
-      />
+      <HelperText 
+      type= "error" 
+      visible={invalidPriceRange()}
+      >
+        {getPriceNotValidText(Number(type))}</HelperText>
+      <RadioButton.Group onValueChange={newValue => setType(newValue)} value={type}>
+        <View style={styles.radio}>
+          <RadioButton value="0" />
+          <Text>integrated</Text>
+
+        </View>
+        <View style={styles.radio}>
+          <RadioButton value="1" />
+          <Text>periphiral</Text>
+
+        </View>
+      </RadioButton.Group>
       <View
         style={{
           flexDirection: "row",
@@ -56,20 +127,36 @@ export const AddProductListScreen: React.FC<
         <TouchableOpacity
           style={styles.buttonStyleSave}
           onPress={() => {
-            addProduct({
-              id: products.length + 1,
-              name: Name,
-              price: Number(Price),
-              type: Number(Type),
-            });
-            props.navigation.navigate("ProductListScreen");
+            if (!invalidPriceRange() && !invalidNameInput()) {
+              if (params.add) {
+
+                addProduct({
+                  id: products.length + 1,
+                  name: name,
+                  price: Number(Price),
+                  type: Number(type),
+                });
+              } else {
+                updateProduct({
+                  id: id,
+                  name: name,
+                  price: Number(Price),
+                  type: Number(type),
+                });
+
+              }
+              props.navigation.navigate("ProductListScreen");
+            }
           }}
         >
           <Text style={styles.saveButtonText}>SAVE</Text>
           <Entypo name="align-bottom" size={24} color="white" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.buttonStyleCancel}>
+        <TouchableOpacity style={styles.buttonStyleCancel}
+        onPress={() => {
+          props.navigation.navigate("ProductListScreen");
+        }}>
           <Text style={styles.cancelButtonText}>CANCEL</Text>
           <MaterialCommunityIcons name="cancel" size={24} color="black" />
         </TouchableOpacity>
@@ -87,6 +174,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "white",
   },
+  radio: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start"
+
+  },
+
   text: {
     marginTop: 20,
     marginBottom: 10,
