@@ -26,11 +26,11 @@ interface ListItemComponent extends ListItem {
 export const ListItem: React.FC<ListItemComponent> = (props) => {
   const getType = (id: number) => {
     if (id === 0) {
-      return "integrated";
+      return translate(tokens.screens.addProductListScreen.Integrated);
     } else if (id === 1) {
-      return "peripheral";
+      return translate(tokens.screens.addProductListScreen.Peripheral)
     } else {
-      return "unknown";
+      return translate(tokens.screens.addProductListScreen.UnknownType)
     }
   };
 
