@@ -1,10 +1,16 @@
+import { isPlaceholder } from "@babel/types";
+import { placeholder } from "i18n-js";
 import React from "react";
-import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Badge, Card, IconButton } from "react-native-paper";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Badge, Card, IconButton, Title } from "react-native-paper";
 import { tokens } from "../../language/appStructure";
 import { translate } from "../../language/language";
-
-
 
 export interface ListItem {
   id: number;
@@ -29,23 +35,25 @@ export const ListItem: React.FC<ListItemComponent> = (props) => {
   };
 
   return (
-    
-  
-    <Card.Title
-      style={styles.card}
-      title={getType(props.type)}
-      left={() => <Text>{props.name}</Text>}
-      right={() => <Text>${props.price}</Text>}
-    />
-    
    
+    <Card.Content style={styles.card}>
+      
+       <Text>{props.name}</Text>
+       <Text>{getType(props.type)}</Text>
+       <Text>${props.price}</Text>
+       
+    </Card.Content>
+ 
+  
   );
 };
 
 const styles = StyleSheet.create({
   card: {
+    marginTop: 9,
+    justifyContent: "space-between",
     backgroundColor: "#D3D3D3",
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: "black",
     flexDirection: "row",
     paddingHorizontal: 4,
@@ -61,11 +69,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 6,
-  },
-  content: {
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
   },
 });
