@@ -1,20 +1,11 @@
 import React, { createContext, useState, FC } from "react";
-import { Text } from "react-native";
 import { ProductItem, ProductsContextState } from "../helpers/types";
 
 const contextDefaultValues: ProductsContextState = {
-  products: [ {
-      id: 0,
-      name: "Hej",
-      price: 0,
-      type: 0
-  }
-
-
-  ],
+  products: [],
   addProduct: () => {},
   updateProduct: () => {},
-  deleteProduct: () => {}    
+  deleteProduct: () => {},
 };
 
 export const ProductsContext =
@@ -37,11 +28,9 @@ const ProductsProvider: FC = ({ children }) => {
         product.type = updatedProduct.type;
         setProducts([...products]);
       }
-      
     });
-
   };
-const deleteProduct = (id: Number) => {
+  const deleteProduct = (id: Number) => {
     const newList = products.filter((item) => item.id !== id);
     setProducts(newList);
   };
@@ -52,7 +41,7 @@ const deleteProduct = (id: Number) => {
         products,
         addProduct,
         updateProduct,
-        deleteProduct
+        deleteProduct,
       }}
     >
       {children}

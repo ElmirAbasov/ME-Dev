@@ -1,5 +1,3 @@
-
-
 enum App {
     MainText= 'app-main-text' 
 }
@@ -13,7 +11,9 @@ enum AddProductListScreen  {
     Integrated="AddproductListScreen-integrated",
     Peripheral="AddproductListScreen-Peripheral",
     UnknownType="AddproductListScreen-UknownType",
-    Delete="AddproductListScreen-Delete"
+    Delete="AddproductListScreen-Delete",
+    ProductType="AddproductListScreen-ProductType",
+    Done="AddproductListScreen-Done",
 }
 enum ProductListScreen {
     MainText = 'ProductListsScreen-MainText',
@@ -21,7 +21,7 @@ enum ProductListScreen {
     Price=  'ProductListsScreen-Price',
     Type=  'ProductListsScreen-Type',
     SureDelete= "ProductListScreen-SureDelete",
-    NoProducts= "ProductListScreen.NoProducts"
+    NoProducts= "ProductListScreen-NoProducts"
 }
 enum List {
     Integrated = "ProductItem-Integrated",

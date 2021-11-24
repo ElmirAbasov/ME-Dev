@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useContext, useEffect } from "react";
 import {
+  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -18,16 +19,9 @@ import {
   Portal,
   Provider,
 } from "react-native-paper";
-
-
 import { tokens } from "../language/appStructure";
 import { translate } from "../language/language";
-
-
-
-import { HelperText, RadioButton } from 'react-native-paper';
-
-
+import { HelperText, RadioButton } from "react-native-paper";
 
 export const AddProductListScreen: React.FC<
   NativeStackScreenProps<StackScreens, "AddProductListScreen">
@@ -81,10 +75,9 @@ export const AddProductListScreen: React.FC<
 
   const getPriceNotValidText = (type: number) => {
     if (type === 1) {
-
-      return "1000-2600";
+      return translate(tokens.screens.addProductListScreen.PriceRangeNotValid);
     } else {
-      return ">0";
+      return translate(tokens.screens.addProductListScreen.PriceNotValid);
     }
   };
   const getType = (id: number) => {
@@ -94,17 +87,14 @@ export const AddProductListScreen: React.FC<
       return "peripheral";
     } else {
       return "unknown";
-
-      return translate(tokens.screens.addProductListScreen.PriceRangeNotValid);
-    } else {
-      return  translate(tokens.screens.addProductListScreen.PriceNotValid);
-
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{translate(tokens.screens.addProductListScreen.MainText)}</Text>
+      <Text style={styles.text}>
+        {translate(tokens.screens.addProductListScreen.MainText)}
+      </Text>
       <TextInput
         style={styles.input}
         onChangeText={setName}
@@ -120,29 +110,15 @@ export const AddProductListScreen: React.FC<
         placeholder={translate(tokens.screens.productListScreen.Price)}
         placeholderTextColor="grey"
       />
-      <TouchableOpacity  style={styles.input} onPress={showDialog} >
+      <TouchableOpacity style={styles.input} onPress={showDialog}>
         <Text style={styles.textinput}>{getType(Number(type))}</Text>
       </TouchableOpacity>
 
-
-      <HelperText 
-      type= "error" 
-      visible={invalidPriceRange()}
-      >
-        {getPriceNotValidText(Number(type))}</HelperText>
-      <RadioButton.Group onValueChange={newValue => setType(newValue)} value={type}>
-        <View style={styles.radio}>
-          <RadioButton value="0" />
-          <Text>{translate(tokens.screens.addProductListScreen.Integrated)}</Text>
-
-        </View>
-        <View style={styles.radio}>
-          <RadioButton value="1" />
-          <Text>{translate(tokens.screens.addProductListScreen.Peripheral)}</Text>
-
-        </View>
-      </RadioButton.Group>
-
+      {invalidPriceRange() && (
+        <Text style={styles.helperText}>
+          {getPriceNotValidText(Number(type))}
+        </Text>
+      )}
 
       <View
         style={{
@@ -175,60 +151,94 @@ export const AddProductListScreen: React.FC<
             }
           }}
         >
-          <Text style={styles.saveButtonText}>{translate(tokens.screens.addProductListScreen.Save)}</Text>
+          <Text style={styles.saveButtonText}>
+            {translate(tokens.screens.addProductListScreen.Save)}
+          </Text>
           <Entypo name="align-bottom" size={30} color="white" />
         </TouchableOpacity>
 
-
-
-        <TouchableOpacity style={styles.buttonStyleCancel}
-        onPress={() => {
-          props.navigation.navigate("ProductListScreen");
-        }}>
-          <Text style={styles.cancelButtonText}>{translate(tokens.screens.addProductListScreen.Cancel)}</Text>
-          <MaterialCommunityIcons name="cancel" size={30} color="white"/>
-
+        <TouchableOpacity
+          style={styles.buttonStyleCancel}
+          onPress={() => {
+            props.navigation.navigate("ProductListScreen");
+          }}
+        >
+          <Text style={styles.cancelButtonText}>
+            {translate(tokens.screens.addProductListScreen.Cancel)}
+          </Text>
+          <MaterialCommunityIcons name="cancel" size={30} color="white" />
         </TouchableOpacity>
       </View>
       <Provider>
         <View>
-         
           <Portal>
-            <Dialog style={styles.dialog} visible={visible} onDismiss={hideDialog}>
-            <Dialog.Title style={styles.dialogText}>Product Type</Dialog.Title>
+            <Dialog
+              style={styles.dialog}
+              visible={visible}
+              onDismiss={hideDialog}
+            >
+              <Text style={styles.dialogText}>
+                {translate(tokens.screens.addProductListScreen.ProductType)}
+              </Text>
               <RadioButton.Group
                 onValueChange={(newValue) => setType(newValue)}
                 value={type}
               >
                 <View style={styles.radio}>
                   <RadioButton value="0" />
-                  <Text>integrated</Text>
+                  <Text>
+                    {translate(tokens.screens.addProductListScreen.Integrated)}
+                  </Text>
                 </View>
                 <View style={styles.radio}>
                   <RadioButton value="1" />
-                  <Text>periphiral</Text>
+                  <Text>
+                    {translate(tokens.screens.addProductListScreen.Peripheral)}
+                  </Text>
                 </View>
               </RadioButton.Group>
               <Dialog.Actions>
-                <Button color={"red"} onPress={hideDialog}>Done</Button>
+                <Button color={"red"} onPress={hideDialog}>
+                  <Text>
+                    {translate(tokens.screens.addProductListScreen.Done)}
+                  </Text>
+                </Button>
               </Dialog.Actions>
             </Dialog>
           </Portal>
         </View>
       </Provider>
+      <View style={styles.imgstyle}>
+        <Image
+          source={{
+            uri: "https://i.pinimg.com/originals/47/5c/6a/475c6a0422609b2017be41416e2075fc.gif",
+          }}
+          style={{ width: 200, height: 200 }}
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  helperText: {
+    color: "red",
+  },
+  imgstyle: {
+    top: -70,
+  },
+
   dialog: {
     backgroundColor: "white",
   },
   textinput: {
-    marginTop: 10
+    marginTop: 10,
   },
   dialogText: {
+    padding: 10,
     color: "black",
+    fontSize: 20,
+    fontWeight: "bold",
   },
   cancelButtonText: {
     fontSize: 20,
