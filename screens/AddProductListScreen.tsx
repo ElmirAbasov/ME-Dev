@@ -114,9 +114,11 @@ export const AddProductListScreen: React.FC<
         <Text style={styles.textinput}>{getType(Number(type))}</Text>
       </TouchableOpacity>
 
-      <HelperText type="error" visible={invalidPriceRange()}>
-        {getPriceNotValidText(Number(type))}
-      </HelperText>
+      {invalidPriceRange() && (
+        <Text style={styles.helperText}>
+          {getPriceNotValidText(Number(type))}
+        </Text>
+      )}
 
       <View
         style={{
@@ -175,25 +177,31 @@ export const AddProductListScreen: React.FC<
               visible={visible}
               onDismiss={hideDialog}
             >
-              <Dialog.Title style={styles.dialogText}>
-                Product Type
-              </Dialog.Title>
+              <Text style={styles.dialogText}>
+                {translate(tokens.screens.addProductListScreen.ProductType)}
+              </Text>
               <RadioButton.Group
                 onValueChange={(newValue) => setType(newValue)}
                 value={type}
               >
                 <View style={styles.radio}>
                   <RadioButton value="0" />
-                  <Text>integrated</Text>
+                  <Text>
+                    {translate(tokens.screens.addProductListScreen.Integrated)}
+                  </Text>
                 </View>
                 <View style={styles.radio}>
                   <RadioButton value="1" />
-                  <Text>periphiral</Text>
+                  <Text>
+                    {translate(tokens.screens.addProductListScreen.Peripheral)}
+                  </Text>
                 </View>
               </RadioButton.Group>
               <Dialog.Actions>
                 <Button color={"red"} onPress={hideDialog}>
-                  Done
+                  <Text>
+                    {translate(tokens.screens.addProductListScreen.Done)}
+                  </Text>
                 </Button>
               </Dialog.Actions>
             </Dialog>
@@ -213,10 +221,11 @@ export const AddProductListScreen: React.FC<
 };
 
 const styles = StyleSheet.create({
+  helperText: {
+    color: "red",
+  },
   imgstyle: {
-    top: -200,
-    height: 100,
-    width: 200,
+    top: -70,
   },
 
   dialog: {
@@ -226,7 +235,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   dialogText: {
+    padding: 10,
     color: "black",
+    fontSize: 20,
+    fontWeight: "bold",
   },
   cancelButtonText: {
     fontSize: 20,

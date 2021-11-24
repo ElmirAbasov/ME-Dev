@@ -115,9 +115,9 @@ export const ProductListScreen: React.FC<
               visible={visible}
               onDismiss={hideDialog}
             >
-              <Dialog.Title style={styles.dialogText}>
+              <Text style={styles.dialogTitle}>
                 {translate(tokens.screens.addProductListScreen.Delete)}
-              </Dialog.Title>
+              </Text>
               <Dialog.Content>
                 <Paragraph style={styles.dialogText}>
                   {translate(tokens.screens.productListScreen.SureDelete)}
@@ -157,7 +157,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 14,
   },
+  dialogTitle: {
+    padding: 10,
+    color: "black",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
   dialogText: {
+    paddingTop: 20,
     color: "black",
   },
 

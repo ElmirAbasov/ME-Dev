@@ -11,8 +11,9 @@ export const swedish = {
     [tokens.screens.addProductListScreen.PriceRangeNotValid]: "Priset måste vara mellan 1000 och 2600",
     [tokens.screens.addProductListScreen.Integrated]: "Integrerad",
     [tokens.screens.addProductListScreen.Peripheral]: "Kringutrustning",
-    [tokens.screens.addProductListScreen.UnknownType]: "Okänd typ",
-
+    [tokens.screens.addProductListScreen.UnknownType]: "Okänd Typ",
+    [tokens.screens.addProductListScreen.ProductType]: "Produkt Typ",
+    [tokens.screens.addProductListScreen.Done]: "Klar",
     
     //ProductListScreen Translations SV
     [tokens.screens.productListScreen.MainText]:"Produkter",

@@ -11,7 +11,9 @@ enum AddProductListScreen  {
     Integrated="AddproductListScreen-integrated",
     Peripheral="AddproductListScreen-Peripheral",
     UnknownType="AddproductListScreen-UknownType",
-    Delete="AddproductListScreen-Delete"
+    Delete="AddproductListScreen-Delete",
+    ProductType="AddproductListScreen-ProductType",
+    Done="AddproductListScreen-Done",
 }
 enum ProductListScreen {
     MainText = 'ProductListsScreen-MainText',
