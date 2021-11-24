@@ -19,7 +19,15 @@ import {
   Provider,
 } from "react-native-paper";
 
-import { HelperText, RadioButton } from "react-native-paper";
+
+import { tokens } from "../language/appStructure";
+import { translate } from "../language/language";
+
+
+
+import { HelperText, RadioButton } from 'react-native-paper';
+
+
 
 export const AddProductListScreen: React.FC<
   NativeStackScreenProps<StackScreens, "AddProductListScreen">
@@ -73,6 +81,7 @@ export const AddProductListScreen: React.FC<
 
   const getPriceNotValidText = (type: number) => {
     if (type === 1) {
+
       return "1000-2600";
     } else {
       return ">0";
@@ -85,17 +94,22 @@ export const AddProductListScreen: React.FC<
       return "peripheral";
     } else {
       return "unknown";
+
+      return translate(tokens.screens.addProductListScreen.PriceRangeNotValid);
+    } else {
+      return  translate(tokens.screens.addProductListScreen.PriceNotValid);
+
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Create New Product</Text>
+      <Text style={styles.text}>{translate(tokens.screens.addProductListScreen.MainText)}</Text>
       <TextInput
         style={styles.input}
         onChangeText={setName}
         value={name}
-        placeholder="Name"
+        placeholder={translate(tokens.screens.productListScreen.Name)}
         placeholderTextColor="grey"
       />
 
@@ -103,17 +117,32 @@ export const AddProductListScreen: React.FC<
         style={styles.input}
         onChangeText={setPrice}
         value={Price}
-        placeholder="Price"
+        placeholder={translate(tokens.screens.productListScreen.Price)}
         placeholderTextColor="grey"
       />
       <TouchableOpacity  style={styles.input} onPress={showDialog} >
         <Text style={styles.textinput}>{getType(Number(type))}</Text>
       </TouchableOpacity>
 
-      <HelperText type="error" visible={invalidPriceRange()}>
-        {getPriceNotValidText(Number(type))}
-      </HelperText>
-     
+
+      <HelperText 
+      type= "error" 
+      visible={invalidPriceRange()}
+      >
+        {getPriceNotValidText(Number(type))}</HelperText>
+      <RadioButton.Group onValueChange={newValue => setType(newValue)} value={type}>
+        <View style={styles.radio}>
+          <RadioButton value="0" />
+          <Text>{translate(tokens.screens.addProductListScreen.Integrated)}</Text>
+
+        </View>
+        <View style={styles.radio}>
+          <RadioButton value="1" />
+          <Text>{translate(tokens.screens.addProductListScreen.Peripheral)}</Text>
+
+        </View>
+      </RadioButton.Group>
+
 
       <View
         style={{
@@ -146,18 +175,19 @@ export const AddProductListScreen: React.FC<
             }
           }}
         >
-          <Text style={styles.saveButtonText}>SAVE</Text>
+          <Text style={styles.saveButtonText}>{translate(tokens.screens.addProductListScreen.Save)}</Text>
           <Entypo name="align-bottom" size={30} color="white" />
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.buttonStyleCancel}
-          onPress={() => {
-            props.navigation.navigate("ProductListScreen");
-          }}
-        >
-          <Text style={styles.cancelButtonText}>CANCEL</Text>
-          <MaterialCommunityIcons name="cancel" size={30} color="white" />
+
+
+        <TouchableOpacity style={styles.buttonStyleCancel}
+        onPress={() => {
+          props.navigation.navigate("ProductListScreen");
+        }}>
+          <Text style={styles.cancelButtonText}>{translate(tokens.screens.addProductListScreen.Cancel)}</Text>
+          <MaterialCommunityIcons name="cancel" size={30} color="white"/>
+
         </TouchableOpacity>
       </View>
       <Provider>

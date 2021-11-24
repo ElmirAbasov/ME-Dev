@@ -7,13 +7,21 @@ enum App {
 enum AddProductListScreen  {
     MainText= 'AddProductListScreen-main-text',
     Save= 'AddProductListScreen-save-button',
-    Cancel= 'AddProductListScreen-Cancel-button'
+    Cancel= 'AddProductListScreen-Cancel-button',
+    PriceNotValid= "AddProductListScreen-PriceNotValid",
+    PriceRangeNotValid="AddproductListScreen-PriceRangeNotValid",
+    Integrated="AddproductListScreen-integrated",
+    Peripheral="AddproductListScreen-Peripheral",
+    UnknownType="AddproductListScreen-UknownType",
+    Delete="AddproductListScreen-Delete"
 }
 enum ProductListScreen {
     MainText = 'ProductListsScreen-MainText',
     Name=  'ProductListsScreen-Name',
     Price=  'ProductListsScreen-Price',
-    Type=  'ProductListsScreen-Type'
+    Type=  'ProductListsScreen-Type',
+    SureDelete= "ProductListScreen-SureDelete",
+    NoProducts= "ProductListScreen.NoProducts"
 }
 enum List {
     Integrated = "ProductItem-Integrated",
