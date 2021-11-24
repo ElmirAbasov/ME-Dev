@@ -7,10 +7,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import Icon from "react-native-paper/lib/typescript/components/Icon";
-
+import { Entypo } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ProductsContext } from "../components/context/provider";
 import { StackScreens } from "../components/helpers/types";
+import { useFonts } from "expo-font";
 
 export const AddProductListScreen: React.FC<
   NativeStackScreenProps<StackScreens, "AddProductListScreen">
@@ -19,27 +20,30 @@ export const AddProductListScreen: React.FC<
   const [Name, setName] = React.useState("");
   const [Price, setPrice] = React.useState("");
   const [Type, setType] = React.useState("");
+  const [fontsLoaded] = useFonts({
+    CrazyFont: require("../assets/fonts/SpaceMono-Regular.ttf"),
+  });
   return (
     <View style={styles.container}>
-      <h1>Create New Product</h1>
+      <Text style={styles.text}>Create New Product</Text>
       <TextInput
         style={styles.input}
         onChangeText={setName}
         value={Name}
-        placeholder="useless placeholder"
+        placeholder="Name"
       />
 
       <TextInput
         style={styles.input}
         onChangeText={setPrice}
         value={Price}
-        placeholder="useless placeholder"
+        placeholder="Price"
       />
       <TextInput
         style={styles.input}
         onChangeText={setType}
         value={Type}
-        placeholder="useless placeholder"
+        placeholder="Product Type"
       />
       <View
         style={{
@@ -51,7 +55,6 @@ export const AddProductListScreen: React.FC<
       >
         <TouchableOpacity
           style={styles.buttonStyleSave}
-          
           onPress={() => {
             addProduct({
               id: products.length + 1,
@@ -62,10 +65,13 @@ export const AddProductListScreen: React.FC<
             props.navigation.navigate("ProductListScreen");
           }}
         >
-          <Text style={styles.saveButtonText}>SAVE </Text>
+          <Text style={styles.saveButtonText}>SAVE</Text>
+          <Entypo name="align-bottom" size={24} color="white" />
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.buttonStyleCancel}>
           <Text style={styles.cancelButtonText}>CANCEL</Text>
+          <MaterialCommunityIcons name="cancel" size={24} color="black" />
         </TouchableOpacity>
       </View>
     </View>
@@ -80,6 +86,14 @@ const styles = StyleSheet.create({
   saveButtonText: {
     fontSize: 20,
     color: "white",
+  },
+  text: {
+    marginTop: 20,
+    marginBottom: 10,
+    fontFamily: "CrazyFont",
+    fontSize: 24,
+    textAlign: "center",
+    fontWeight: "bold",
   },
   input: {
     borderRadius: 5,

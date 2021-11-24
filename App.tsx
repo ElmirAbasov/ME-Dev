@@ -1,11 +1,9 @@
 import React from "react";
 import { ProductListScreen } from "././screens/ProductListScreen";
-
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StackScreens } from "././components/helpers/types";
 import { AddProductListScreen } from "./screens/AddProductListScreen";
-import { title } from "process";
 import ProductsProvider from "./components/context/provider";
 import { setI18nConfig, translate } from "./language/language";
 

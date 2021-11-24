@@ -13,4 +13,5 @@ export interface ProductItem {
     products: ProductItem[];
     addProduct: (product: ProductItem) => void;
     updateProduct: (product: ProductItem) => void;
+    deleteProduct: (id: Number) => void;
   };
