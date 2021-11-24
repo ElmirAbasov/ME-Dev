@@ -1,5 +1,3 @@
-
-
 enum App {
     MainText= 'app-main-text' 
 }

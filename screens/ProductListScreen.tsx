@@ -10,9 +10,7 @@ import {
 } from "react-native";
 import { StackScreens } from "../components/helpers/types";
 import { Divider, List } from "react-native-paper";
-import ProductsProvider, {
-  ProductsContext,
-} from "../components/context/provider";
+import { ProductsContext } from "../components/context/provider";
 import { ListItem } from "../components/lists/List";
 import {
   Button,
@@ -24,15 +22,12 @@ import {
 import { tokens } from "../language/appStructure";
 import { translate } from "../language/language";
 
-
 export const ProductListScreen: React.FC<
   NativeStackScreenProps<StackScreens, "ProductListScreen">
 > = (props) => {
   const [visible, setVisible] = React.useState(false);
 
   const showDialog = () => setVisible(true);
-
-
 
   const hideDialog = () => setVisible(false);
 
@@ -42,22 +37,20 @@ export const ProductListScreen: React.FC<
   const renderItem = ({ item }: { item: ListItem }) => {
     return (
       <TouchableOpacity
-      onLongPress={() => {
-        setSelectedItem(item.id);
-       showDialog();
-
-      }}
+        onLongPress={() => {
+          setSelectedItem(item.id);
+          showDialog();
+        }}
         onPress={() => {
-          
-          props.navigation.navigate("AddProductListScreen",{ 
-            item:{
-              id:item.id,
-              name:item.name,
-              price:item.price,
-              type:item.type
-
-            },add:false
-          })
+          props.navigation.navigate("AddProductListScreen", {
+            item: {
+              id: item.id,
+              name: item.name,
+              price: item.price,
+              type: item.type,
+            },
+            add: false,
+          });
         }}
       >
         <ListItem
@@ -73,18 +66,24 @@ export const ProductListScreen: React.FC<
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={styles.containerText}>{translate(tokens.screens.productListScreen.Name)} </Text>
-        <Text style={styles.containerText}>{translate(tokens.screens.productListScreen.Type)}</Text>
-        <Text style={styles.containerText}>{translate(tokens.screens.productListScreen.Price)}</Text>
+        <Text style={styles.containerText}>
+          {translate(tokens.screens.productListScreen.Name)}{" "}
+        </Text>
+        <Text style={styles.containerText}>
+          {translate(tokens.screens.productListScreen.Type)}
+        </Text>
+        <Text style={styles.containerText}>
+          {translate(tokens.screens.productListScreen.Price)}
+        </Text>
       </View>
       <Divider />
       <FlatList
-       ListEmptyComponent={
-         
-         <Text style={styles.emptyText}> {translate(tokens.screens.productListScreen.NoProducts)}</Text>
-         
-
-       }
+        ListEmptyComponent={
+          <Text style={styles.emptyText}>
+            {" "}
+            {translate(tokens.screens.productListScreen.NoProducts)}
+          </Text>
+        }
         data={products}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
@@ -95,15 +94,17 @@ export const ProductListScreen: React.FC<
           name="add-circle"
           color={"green"}
           size={60}
-          onPress={() => props.navigation.navigate("AddProductListScreen",{ 
-            item:{
-              id:0,
-              name:"",
-              price:0,
-              type:0
-
-            },add:true
-          })}
+          onPress={() =>
+            props.navigation.navigate("AddProductListScreen", {
+              item: {
+                id: 0,
+                name: "",
+                price: 0,
+                type: 0,
+              },
+              add: true,
+            })
+          }
         ></MaterialIcons>
       </View>
       <Provider>
@@ -114,15 +115,17 @@ export const ProductListScreen: React.FC<
               visible={visible}
               onDismiss={hideDialog}
             >
-              <Dialog.Title style={styles.dialogText}>{translate(tokens.screens.addProductListScreen.Delete)}</Dialog.Title>
+              <Dialog.Title style={styles.dialogText}>
+                {translate(tokens.screens.addProductListScreen.Delete)}
+              </Dialog.Title>
               <Dialog.Content>
                 <Paragraph style={styles.dialogText}>
-                {translate(tokens.screens.productListScreen.SureDelete)}
+                  {translate(tokens.screens.productListScreen.SureDelete)}
                 </Paragraph>
               </Dialog.Content>
               <Dialog.Actions>
                 <Button color={"red"} onPress={hideDialog}>
-                {translate(tokens.screens.addProductListScreen.Cancel)}
+                  {translate(tokens.screens.addProductListScreen.Cancel)}
                 </Button>
                 <Button
                   color={"red"}
@@ -146,14 +149,13 @@ const styles = StyleSheet.create({
   emptyText: {
     textAlign: "center",
     marginTop: "50%",
-    fontSize:18,
+    fontSize: 18,
     fontWeight: "bold",
-    color: "grey"
-
-  }, 
+    color: "grey",
+  },
   containerText: {
     fontWeight: "bold",
-    fontSize: 14
+    fontSize: 14,
   },
   dialogText: {
     color: "black",
@@ -165,7 +167,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 13
+    padding: 13,
   },
 
   IconContainer: {
