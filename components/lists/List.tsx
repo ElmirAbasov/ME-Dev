@@ -1,8 +1,10 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Badge, Card, IconButton } from "react-native-paper";
 import { tokens } from "../../language/appStructure";
 import { translate } from "../../language/language";
+
+
 
 export interface ListItem {
   id: number;
@@ -18,28 +20,34 @@ interface ListItemComponent extends ListItem {
 export const ListItem: React.FC<ListItemComponent> = (props) => {
   const getType = (id: number) => {
     if (id === 0) {
-      return "integrated"
+      return "integrated";
     } else if (id === 1) {
-      return "peripheral"
+      return "peripheral";
     } else {
-      return "unknown"
+      return "unknown";
     }
   };
 
   return (
+    
+  
     <Card.Title
       style={styles.card}
-      title={props.name}
-      subtitle={getType(props.type)}
-      left={() => <Text>${props.price}</Text>}
-      right={() => <IconButton icon="pencil" onPress={props.onClick} />}
+      title={getType(props.type)}
+      left={() => <Text>{props.name}</Text>}
+      right={() => <Text>${props.price}</Text>}
     />
+    
+   
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#D3D3D3",
+    borderWidth: 2,
+    borderColor: "black",
+    flexDirection: "row",
     paddingHorizontal: 4,
     paddingVertical: 12,
     marginHorizontal: 12,

@@ -14,6 +14,7 @@ const contextDefaultValues: ProductsContextState = {
   ],
   addProduct: () => {},
   updateProduct: () => {},
+  deleteProduct: () => {}    
 };
 
 export const ProductsContext =
@@ -36,7 +37,13 @@ const ProductsProvider: FC = ({ children }) => {
         product.type = updatedProduct.type;
         setProducts([...products]);
       }
+      
     });
+
+  };
+const deleteProduct = (id: Number) => {
+    const newList = products.filter((item) => item.id !== id);
+    setProducts(newList);
   };
 
   return (
@@ -45,6 +52,7 @@ const ProductsProvider: FC = ({ children }) => {
         products,
         addProduct,
         updateProduct,
+        deleteProduct
       }}
     >
       {children}

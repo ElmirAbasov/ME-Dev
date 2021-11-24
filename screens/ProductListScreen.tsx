@@ -1,27 +1,55 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useContext } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, View, Text, FlatList } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import { StackScreens } from "../components/helpers/types";
 import { Divider, List } from "react-native-paper";
 import ProductsProvider, {
   ProductsContext,
 } from "../components/context/provider";
 import { ListItem } from "../components/lists/List";
+import {
+  Button,
+  Paragraph,
+  Dialog,
+  Portal,
+  Provider,
+} from "react-native-paper";
 
 export const ProductListScreen: React.FC<
   NativeStackScreenProps<StackScreens, "ProductListScreen">
 > = (props) => {
-  const { products } = useContext(ProductsContext);
+  const [visible, setVisible] = React.useState(false);
+
+  const showDialog = () => setVisible(true);
+
+  const hideDialog = () => setVisible(false);
+
+  const [selectedItem, setSelectedItem] = React.useState(0);
+
+  const { products, deleteProduct } = useContext(ProductsContext);
   const renderItem = ({ item }: { item: ListItem }) => {
     return (
-      <ListItem
-        id={item.id}
-        name={item.name}
-        price={item.price}
-        type={item.type}
-        onClick={() => {}}
-      />
+      <TouchableOpacity
+        onPress={() => {
+          setSelectedItem(item.id);
+          showDialog();
+        }}
+      >
+        <ListItem
+          id={item.id}
+          name={item.name}
+          price={item.price}
+          type={item.type}
+          onClick={() => {}}
+        />
+      </TouchableOpacity>
     );
   };
   return (
@@ -35,8 +63,9 @@ export const ProductListScreen: React.FC<
       <FlatList
         data={products}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}/>
-        
+        keyExtractor={(item) => item.id.toString()}
+      />
+
       <View style={styles.IconContainer}>
         <MaterialIcons
           name="add-circle"
@@ -45,11 +74,50 @@ export const ProductListScreen: React.FC<
           onPress={() => props.navigation.navigate("AddProductListScreen")}
         ></MaterialIcons>
       </View>
+      <Provider>
+        <View>
+          <Portal>
+            <Dialog
+              style={styles.dialog}
+              visible={visible}
+              onDismiss={hideDialog}
+            >
+              <Dialog.Title style={styles.dialogText}>Delete</Dialog.Title>
+              <Dialog.Content>
+                <Paragraph style={styles.dialogText}>
+                  Are you sure you want to delete {} item?
+                </Paragraph>
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button color={"red"} onPress={hideDialog}>
+                  Cancel
+                </Button>
+                <Button
+                  color={"red"}
+                  onPress={() => {
+                    deleteProduct(selectedItem);
+                    hideDialog();
+                  }}
+                >
+                  Delete🗑️
+                </Button>
+              </Dialog.Actions>
+            </Dialog>
+          </Portal>
+        </View>
+      </Provider>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  dialogText: {
+    color: "black",
+  },
+
+  dialog: {
+    backgroundColor: "white",
+  },
   container: {
     flexDirection: "row",
     justifyContent: "space-evenly",
