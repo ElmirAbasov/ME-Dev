@@ -12,7 +12,7 @@ import { Entypo } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ProductsContext } from "../components/context/provider";
 import { StackScreens } from "../components/helpers/types";
-import { useFonts } from "expo-font";
+
 
 
 import { HelperText, RadioButton } from 'react-native-paper';
@@ -28,12 +28,9 @@ export const AddProductListScreen: React.FC<
   const [name, setName] = React.useState("");
   const [id, setId] = React.useState(0);
   const [Price, setPrice] = React.useState("");
+
   const [type, setType] = React.useState('0');
-  const [fontsLoaded] = useFonts({
-    CrazyFont: require("../assets/fonts/SpaceMono-Regular.ttf"),
-
-
-  });
+  
 
   const invalidPriceRange = () => {
     if (Number(type) === 0 && Number(Price) > 0) {
@@ -83,6 +80,7 @@ export const AddProductListScreen: React.FC<
 
 
 
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Create New Product</Text>
@@ -91,6 +89,7 @@ export const AddProductListScreen: React.FC<
         onChangeText={setName}
         value={name}
         placeholder="Name"
+        placeholderTextColor="grey"
       />
 
       <TextInput
@@ -98,7 +97,9 @@ export const AddProductListScreen: React.FC<
         onChangeText={setPrice}
         value={Price}
         placeholder="Price"
+        placeholderTextColor="grey"
       />
+
       <HelperText 
       type= "error" 
       visible={invalidPriceRange()}
@@ -116,6 +117,8 @@ export const AddProductListScreen: React.FC<
 
         </View>
       </RadioButton.Group>
+
+
       <View
         style={{
           flexDirection: "row",
@@ -150,7 +153,7 @@ export const AddProductListScreen: React.FC<
           }}
         >
           <Text style={styles.saveButtonText}>SAVE</Text>
-          <Entypo name="align-bottom" size={24} color="white" />
+          <Entypo name="align-bottom" size={30} color="white" />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.buttonStyleCancel}
@@ -158,7 +161,7 @@ export const AddProductListScreen: React.FC<
           props.navigation.navigate("ProductListScreen");
         }}>
           <Text style={styles.cancelButtonText}>CANCEL</Text>
-          <MaterialCommunityIcons name="cancel" size={24} color="black" />
+          <MaterialCommunityIcons name="cancel" size={30} color="white"/>
         </TouchableOpacity>
       </View>
     </View>
@@ -169,10 +172,14 @@ const styles = StyleSheet.create({
   cancelButtonText: {
     fontSize: 20,
     color: "black",
+    fontWeight: "600",
+    paddingRight: 10
   },
   saveButtonText: {
     fontSize: 20,
     color: "white",
+    fontWeight: "600",
+    paddingRight: 10
   },
   radio: {
     flexDirection: "row",
@@ -184,14 +191,13 @@ const styles = StyleSheet.create({
   text: {
     marginTop: 20,
     marginBottom: 10,
-    fontFamily: "CrazyFont",
     fontSize: 24,
     textAlign: "center",
     fontWeight: "bold",
   },
   input: {
     borderRadius: 5,
-    color: "black",
+    backgroundColor: "#D3D3D3",
     height: 60,
     margin: 12,
     borderWidth: 1,
@@ -200,27 +206,34 @@ const styles = StyleSheet.create({
   },
   buttonStyleCancel: {
     marginTop: 20,
+    height: 50,
     width: "45%",
     marginHorizontal: 10,
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "#ff3d3d",
     borderColor: "black",
-    borderWidth: 2,
+    borderWidth: 1,
     padding: 10,
     borderRadius: 17,
+    flexDirection: "row",
+    justifyContent: "center"
   },
 
   buttonStyleSave: {
     marginTop: 20,
     width: "45%",
+    height: 50,
     marginHorizontal: 10,
     alignItems: "center",
     backgroundColor: "green",
     padding: 10,
     borderRadius: 17,
+    flexDirection: "row",
+    justifyContent: "center"
   },
 
   container: {
+    marginTop: 30,
     justifyContent: "center",
     alignItems: "center",
   },

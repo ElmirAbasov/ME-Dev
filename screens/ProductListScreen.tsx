@@ -70,9 +70,9 @@ export const ProductListScreen: React.FC<
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text>Name </Text>
-        <Text>Type</Text>
-        <Text>Price</Text>
+        <Text style={styles.containerText}>Name </Text>
+        <Text style={styles.containerText}>Type</Text>
+        <Text style={styles.containerText}>Price</Text>
       </View>
       <Divider />
       <FlatList
@@ -134,6 +134,10 @@ export const ProductListScreen: React.FC<
 };
 
 const styles = StyleSheet.create({
+  containerText: {
+    fontWeight: "bold",
+    fontSize: 14
+  },
   dialogText: {
     color: "black",
   },
@@ -143,7 +147,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
+    padding: 13
   },
 
   IconContainer: {
