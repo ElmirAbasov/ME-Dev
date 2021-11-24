@@ -14,6 +14,10 @@ export const english = {
     [tokens.screens.productListScreen.Price]: "Price",
     [tokens.screens.productListScreen.Type]: "Type",
 
+    [tokens.screens.list.Integrated]: "Integrated",
+    [tokens.screens.list.Peripheral]: "Peripheral",
+    [tokens.screens.list.UnknownType]: "Unknown type",
+
 
 
 

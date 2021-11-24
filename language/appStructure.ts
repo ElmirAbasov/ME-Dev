@@ -1,15 +1,32 @@
+
+
 enum App {
     MainText= 'app-main-text' 
 }
 
-enum Screen1  {
-    MainText= 'screen1-main-text',
-    Button= 'screen1-button'
+enum AddProductListScreen  {
+    MainText= 'AddProductListScreen-main-text',
+    Save= 'AddProductListScreen-save-button',
+    Cancel= 'AddProductListScreen-Cancel-button'
+}
+enum ProductListScreen {
+    MainText = 'ProductListsScreen-MainText',
+    Name=  'ProductListsScreen-Name',
+    Price=  'ProductListsScreen-Price',
+    Type=  'ProductListsScreen-Type'
+}
+enum List {
+    Integrated = "ProductItem-Integrated",
+    Peripheral = "ProductItem-Peripheral",
+    UnknownType = "ProductItem-UnknownType",
+
 }
 
 export const tokens = {
     screens: {
         app: App, 
-        screen1: Screen1,
+        addProductListScreen: AddProductListScreen,
+        productListScreen: ProductListScreen,
+        list: List,
     }
 }
