@@ -1,14 +1,6 @@
-import { isPlaceholder } from "@babel/types";
-import { placeholder } from "i18n-js";
 import React from "react";
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { Badge, Card, IconButton, Title } from "react-native-paper";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Card } from "react-native-paper";
 import { tokens } from "../../language/appStructure";
 import { translate } from "../../language/language";
 
@@ -28,23 +20,18 @@ export const ListItem: React.FC<ListItemComponent> = (props) => {
     if (id === 0) {
       return translate(tokens.screens.addProductListScreen.Integrated);
     } else if (id === 1) {
-      return translate(tokens.screens.addProductListScreen.Peripheral)
+      return translate(tokens.screens.addProductListScreen.Peripheral);
     } else {
-      return translate(tokens.screens.addProductListScreen.UnknownType)
+      return translate(tokens.screens.addProductListScreen.UnknownType);
     }
   };
 
   return (
-   
     <Card.Content style={styles.card}>
-      
-       <Text>{props.name}</Text>
-       <Text>{getType(props.type)}</Text>
-       <Text>${props.price}</Text>
-       
+      <Text>{props.name}</Text>
+      <Text>{getType(props.type)}</Text>
+      <Text>${props.price}</Text>
     </Card.Content>
- 
-  
   );
 };
 
